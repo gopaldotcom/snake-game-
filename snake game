@@ -53,3 +53,52 @@ change_to = direction
 score = 0
 
 
+def game_over():
+    my_font = pygame.font.SysFont('times new roman', 90)
+    game_over_surface = my_font.render('YOU DIED', True, green)
+    game_over_rect = game_over_surface.get_rect()
+    game_over_rect.midtop = (frame_size_x/2, frame_size_y/4)
+    game_window.fill(black)
+    game_window.blit(game_over_surface, game_over_rect)
+    show_score(0, red, 'times', 20)
+    pygame.display.flip()
+    time.sleep(3)
+    pygame.quit()
+    sys.exit()
+
+
+
+def show_score(choice, color, font, size):
+    score_font = pygame.font.SysFont(font, size)
+    score_surface = score_font.render('Score : ' + str(score), True, color)
+    score_rect = score_surface.get_rect()
+    if choice == 1:
+        score_rect.midtop = (frame_size_x/10, 15)
+    else:
+        score_rect.midtop = (frame_size_x/2, frame_size_y/1.25)
+    game_window.blit(score_surface, score_rect)
+  
+
+
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+       
+        elif event.type == pygame.KEYDOWN:
+           
+            if event.key == pygame.K_UP or event.key == ord('W'):
+                change_to = 'UP'
+            if event.key == pygame.K_DOWN or event.key == ord('S'):
+                change_to = 'DOWN'
+            if event.key == pygame.K_LEFT or event.key == ord('A'):
+                change_to = 'LEFT'
+            if event.key == pygame.K_RIGHT or event.key == ord('D'):
+                change_to = 'RIGHT'
+           
+            if event.key == pygame.K_ESCAPE:
+                pygame.event.post(pygame.event.Event(pygame.QUIT))
+
+   
